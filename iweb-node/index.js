@@ -21,6 +21,8 @@ app.get("/hello", (req, res) => {
 const teacherRouter = require("./route/teacher.js");
 const indexRouter = require("./route/index.js");
 const userRouter = require("./route/user.js");
+const typeRouter = require("./route/type.js");
+const courseRouter = require("./route/course.js");
 
 // /teacher/list       讲师列表
 // /teacher/add        添加讲师
@@ -29,3 +31,5 @@ const userRouter = require("./route/user.js");
 app.use("/teacher", teacherRouter);
 app.use("/", indexRouter);
 app.use("/user", userRouter);
+app.use("/type", typeRouter);
+app.use("/course", courseRouter);
