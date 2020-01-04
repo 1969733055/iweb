@@ -12,9 +12,15 @@ console.log("Server is listening 5050");
 // true  使用qs来解析数据(不推荐)
 app.use(bodyParser.urlencoded({extended: false}));
 
-// 声明路由
-app.get("/hello", (req, res) => {
-  res.send("Hello Iweb");
+// node 跨越
+
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By",' 3.2.1')
+  if(req.method=="OPTIONS") res.send(200);/*让options请求快速返回*/
+  else  next();
 });
 
 // 引入路由
@@ -23,6 +29,8 @@ const indexRouter = require("./route/index.js");
 const userRouter = require("./route/user.js");
 const typeRouter = require("./route/type.js");
 const courseRouter = require("./route/course.js");
+const cartRouter = require("./route/cart.js");
+const favoriteRouter = require("./route/favorite.js");
 
 // /teacher/list       讲师列表
 // /teacher/add        添加讲师
@@ -33,3 +41,5 @@ app.use("/", indexRouter);
 app.use("/user", userRouter);
 app.use("/type", typeRouter);
 app.use("/course", courseRouter);
+app.use("/cart", cartRouter);
+app.use("/favorite", favoriteRouter);
